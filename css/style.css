@@ -1,0 +1,120 @@
+/* Imports and stuff */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+/* General Styles */
+body{
+	background:		#E1DCD2;
+}
+li{
+	list-style-type:none;
+	padding:0;
+	margin:0;
+}
+a{
+	text-decoration:none;
+}
+
+/* Header Styles */
+#header{
+	/*background:		#C69B19;*/
+	background:		#2B4E78;
+	margin:			0 0 3em 0;
+}
+#header h1{
+	font-family: 	'Open Sans', sans-serif;
+	font-weight: 	700;
+	font-size: 		3em;
+	color:			white;
+	text-shadow:	2px 2px 2px black;
+	line-height:	1.75em;
+}
+
+/* Mission Styles */
+#mission{
+	font-family:	'Open Sans', sans-serif;
+	font-weight:	400;
+	font-size:		2.5em;
+	color:			#333;
+	margin-bottom:	1em;
+}
+
+/* Call Styles */
+#call li{
+	text-align:		center;
+	background:		#c69b19;
+	font-size:		1.75em;
+	color:			white;
+	text-shadow:	2px 2px 2px black;
+	line-height:	1.5em;
+}
+#call a{
+	text-decoration:none;
+	color:			white;
+}
+
+/* Information Styles */
+#information{
+	margin-top:		4em;
+}
+#information>div{
+	background: 	repeat-x url('../images/gradient.jpg');
+	padding:			3em 0 1em 0;
+}
+#information h1{
+	font-family:	'Open Sans', sans-serif;
+	font-weight:	700;
+	font-size:		1.75em;
+	color:			#333;
+	padding-left:	2em;
+}
+#information h3{
+	font-weight:	400;
+	font-size:		1.3em;
+	margin-bottom:	0.3em;
+	margin-left:	1em;
+}
+#meet p{
+	margin:			0.2em 0 0 2em;
+}
+#meet ul{
+	margin:			0.2em 0 0 2em;
+}
+#meet li{
+	margin:0;
+}
+#people li{
+	background:		#C69B19;
+	height:			130px;
+	position:		relative;
+	margin:			0.5em;
+}
+#people li>img{
+	position:		absolute;
+	left:				5px;
+	top:				5px;
+}
+#people li>div{
+	position:		absolute;
+	top:				5px;
+	left:				90px;
+	color:			#444;
+	font-weight:	600;
+}
+#people li>div>a{
+	font-family:	'Open Sans', sans-serif;
+	font-size:		1.5em;
+	color:			#333;
+	text-decoration:none;
+	font-weight:	400;
+	margin-bottom:	2em;
+}
+#people li:nth-child(2n){
+	background:		#2b4e78;
+}
+#people li:nth-child(2n)>div{
+	color:			#eee;
+}
+#people li:nth-child(2n)>div>a{
+	color:			#eee;
+}
+
