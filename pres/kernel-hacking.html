@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Kernel Hacking</title>
+	
+	<meta name="description" content="Kernel Hacking 101">
+	<meta name="author" content="Jesus Ramos">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="core/deck.core.css">
+	<link rel="stylesheet" href="extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="extensions/status/deck.status.css">
+	<link rel="stylesheet" href="extensions/hash/deck.hash.css">
+	
+	<!-- Theme CSS files (menu swaps these out) -->
+	<link rel="stylesheet" id="style-theme-link" href="themes/style/web-2.0.css">
+	<link rel="stylesheet" id="transition-theme-link" href="themes/transition/horizontal-slide.css">
+	
+	<script src="modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+<section class="slide" id="title">
+    <h1>Kernel Hacking 101 by Jesus Ramos</h1>
+</section>
+
+<section class="slide" id="kernel-desc">
+    <h2>What is a kernel?</h2>
+	<p>
+		A kernel is the part of the operating system which is usually a passive
+		layer between the hardware and anything the system may need.
+	</p>
+	<p>
+		Once the kernel is done initializing itself it hands control over to
+		user level applications and after this only runs on behalf of a user level
+		process or software interrupt, or on behalf of a hardware request.
+	</p>
+	<p>
+		For some people the kernel is the only protection the hardware has from the user.
+		Normally it's the other way around, the kernel provides an interface to the hardware
+		that allows a generic interface through which a user and user space applications
+		can make use of those resources.
+	</p>
+</section>
+
+<section class="slide" id="exp">
+    <h2>What experience do I need to work on the kernel?</h2>
+	<h3 class="slide">Next to none!</h3>
+	<ol class="slide">
+	        <li>
+		    <h3>Knowledge of data types</h3>
+			<p>Example: int, long, byte, etc...</p>
+		</li>
+		<li>
+		    <h3>Basic structures (in C)</h3>
+			<p>How to access members of a structure (either by reference or value)</p>
+		</li>
+		<li>
+		    <h3>How to read and follow code</h3>
+			<p>Reading and understanding code written by other people</p>
+		</li>
+		<li>
+			<h3>Any C-like language experience</h3>
+			<p>This includes Java, C#, C++, etc..</p>
+		</li>
+	</ol>
+</section>
+
+<section class="slide" id="kernel-org">
+    <h2>Cool where do I start?</h2>
+	<ol>
+	    <li class="slide">
+		    <h3>Get the kernel sources</h3>
+			<p>Kernel.org, Linus Torvald's Github</p>
+		</li>
+		<li class="slide">
+			<h3>Read the sources</h3>
+			<p>
+				Folders are self describing (mm = memory management, include = I hope I don't
+				have to explain this one, etc..). Try to avoid the arch folders as they contain
+				architecture specific information that you probably don't care about.
+				
+				Most of the high level implementation is human readable to a certain extent if you're
+				familiar with the data structures since there's no architecture specific code involved
+				or assembly (at least there shouldn't be....)
+			</p>
+		</li>
+		<li class = "slide">
+			<h3>Learn the data structures</h3>
+			<p>
+				Located in the root source include folder. Most of them are actually implemented
+				directly in the header files as macros and inline functions. You can learn a lot
+				about GCC tricks and pointer arithmetic here.
+				
+				Favorite example is the list_entry method which uses pointer arithmetic to get
+				the original structure using only a pointer to the list_head structure within
+				that structure.
+			</p>
+		</li>
+	</ol>
+</section>
+
+<section class="slide" id="learn">
+	<h2>More Advanced Things to Look At</h2>
+	<ol>
+		<li class="slide">
+			<h3>Kernel Memory Management</h3>
+			<p>
+				Memory allocation schemes, SLUB and SLAB. The kernel needs to manage its internal structures somehow right?
+				It's malloc for the kernel (kmalloc).
+			</p>
+		</li>
+		<li class="slide">
+			<h3>Basic OS Concepts</h3>
+			<p>
+				Virtual memory management, Scheduling, Kernel/Process context, System calls, Block Device I/O,
+				Kernel modules, Device drivers.
+			</p>
+		</li>
+	</ol>
+</section>
+
+<section class="slide" id="whatcanido">
+	<h2>That's nice but what can I do?</h2>
+	<ol>
+		<li class="slide">
+			<h3>Work on Kernel related projects</h3>
+			<p>
+				The android kernel is built using a custom linux kernel, which is open source.
+				For those that have an HP Touchpad, the CyanogenMod version of Android for it
+				is also open source which means you can work on it if you want to see something
+				implemented for it.
+			</p>
+		</li>
+		<li class="slide">
+			<h3>Apply custom patches to improve performance</h3>
+			<p>
+				Every once in a while you may see kernel patches floating around the net
+				that promise increased performance of certain applications, but maybe your
+				particular distro hasn't caught up yet or doesn't support that kernel version
+				in their package repository.
+				
+				You could always apply the patch and compile it yourself and install it.
+			</p>
+		</li>
+		<li class="slide">
+			<h3>Learn how your system works</h3>
+			<p>
+				Learn by taking things apart if you will. Ever wondered what happens when you press a key
+				on your keyboard? When you try to save a file to an external drive? Find it in the code.
+				
+				Maybe you'll figure out a better way to do things.
+			</p>
+		</li>
+	</ol>
+</section>
+
+<section class="slide" id="compiling">
+	<h2>Compiling the Kernel</h2>
+	<ol>
+		<li class="slide">
+			<h3>Make a configuration file</h3>
+			<p>
+				<pre>make menuconfig</pre> Gives you an interactive menu to select certain
+				features for your kernel (debugging settings, drivers, filesystems, etc...)
+			</p>
+		</li>
+		<li class="slide">
+			<h3>Build the kernel</h3>
+			<p>
+				Ahh, the beauty of make <pre>make</pre> now just kick back and wait.
+				
+				On multicore systems use <pre>make -j #of cores + 1</pre> to use
+				multithreaded compilation to make it go faster.
+			</p>
+		</li>
+	</ol>
+</section>
+
+<section class="slide" id="compiling2">
+	<h2>Compiling the Kernel cont...</h2>
+	<ol>
+		<li class="slide">
+			<h3>Install drivers</h3>
+			<p>Again make, makes life easier <pre>make modules_install</pre> (might require sudo in some distro's).</p>
+		</li>
+		<li class="slide">
+			<h3>The rest of the steps are distribution specific</h3>
+			<p>
+				Depending on your distribution you're just about done here (such as Gentoo). For
+				Ubuntu this requires a bit more work and usually requires updating grub entries and creating
+				an initial RAM filesystem.
+			</p>
+		</li>
+	</ol>
+</section>
+
+<section class="slide" id="conc">
+	<h2>Overview</h2>
+	<ol>
+		<li class="slide">
+			<h3>Play around with the kernel</h3>
+			<p>
+				Try changing some stuff and see what happens (usually bad things).
+				
+				Poke around and see why things are done or just how they work.
+			</p>
+		</li>
+		<li class="slide">
+			<h3>Work on open source kernel project</h3>
+			<p>
+				One of the most popular ones right now (besides the kernel itself) as I mentioned
+				before is the CyanogenMod version for the HP Touchpad. Involves writing mostly drivers
+				and driver related code as the kernel is robust enough if you build something for
+				it to sit on, it just works.
+				
+				Porting Linux to random devices seems to be something that people want to do
+				and people are willing to get behind.
+				
+				Plenty of projects on Github related to Linux.
+			</p>
+		</li>
+		<li class="slide">
+			<h3>Just learn</h3>
+			<p>
+				Heck if all else fails, you hopefully learned something about operating systems or 
+				operating systems development.
+			</p>
+		</li>
+	</ol>
+</section>
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="jquery-1.6.4.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="core/deck.core.js"></script>
+
+<!-- Specific to this page -->
+<script>
+$(function() {
+	// Deck initialization
+	$.deck('.slide');
+	
+	$('#style-themes').change(function() {
+		$('#style-theme-link').attr('href', $(this).val());
+	});
+	
+	$('#transition-themes').change(function() {
+		$('#transition-theme-link').attr('href', $(this).val());
+	});
+});
+</script>
+
+</body>
+</html>

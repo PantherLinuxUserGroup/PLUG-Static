@@ -1,0 +1,23 @@
+body{
+   font-size: 20px;
+}
+
+h1{
+   background: black;
+   color: white;
+   font-size: 2em;
+   font-family: 'Times New Roman', Arial, sans-serif;
+   padding:1em;
+   margin:1em;
+   border:1em red solid;
+}
+
+p#tagline{
+   color: #777;
+   font: 1.5em sans-serif;
+   padding: 1.5em 3em;
+}
+
+.bar{
+   font-family: 'Comic Sans MS', serif;
+}

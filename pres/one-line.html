@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Useful BASH One-Liners, Dissected</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="core/deck.core.css">
+	
+	<!-- Theme CSS files (menu swaps these out) -->
+	<link rel="stylesheet" id="style-theme-link" href="themes/style/swiss.css">
+	<link rel="stylesheet" id="transition-theme-link" href="themes/transition/horizontal-slide.css">
+	
+	<script src="modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+<section class="slide" id="title-slide">
+	<h1>One Line, One Love</h1>
+</section>
+
+<section class="slide">
+	<h2>What's the difference between chmod and chattr?</h2>
+	<pre class="slide">man chattr &gt; 1; man chmod &gt; 2; diff -u 1 2 | less</pre>
+	<ul>
+		<li class="slide">Not technically one line, since each semicolon is considered a linebreak</li>
+		<li class="slide">Buffer output by dumping it into files, like here it's done with the files 1 and 2</li>
+		<li class="slide">
+			<h3>Piping</h3>
+			<ul>
+				<li>Pipes take the output of left statement, then use as input of right statement</li>
+				<li>Pipes can be chained together without limit</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Cutting through the soup of processes</h2>
+	<h4>Problem</h4>
+	<div class="slide"><pre>ps -ef | grep username</pre></div>
+	<p class="slide">ps gets the processes nicely formatted (by -f), then grep takes in a regular expression and then searches for that pattern</p>
+</section>
+
+<section class="slide">
+	<h2>Create a quick backup of a file</h2>
+	<h4>Problem</h4>
+	<p>I tend to use tab-complete to quickly type out the copy command to make a file backup, but I want to be faster</p>
+	<div class="slide"><pre>cp filename{,.bak}</pre></div>
+	<div class="slide">
+		<h4>Brace Expansion</h4>
+		<p>The contents of the braces are applied to the prefix (or suffix) in turn, separated by spaces</p>
+		<p>This code is actually evaluated as <code>cp filename filename.bak</code></p>
+		<p>Opens up possibilities for combinatorics, too</p>
+	</div>
+</section>
+
+<section class="slide">
+	<h2>Recursively grab a website</h2>
+	<h4>Problem</h4>
+	<p>Seeing a small website with a unique design, and want to download the whole site to see how it works. IE6 (5?) actually had this baked in.</p>
+	<div class="slide"><pre>wget --random-wait -r -p -e robots=off -U Mozilla www.example.com</pre></div>
+	<div class="slide">
+		<h4>Attributes</h4>
+		<ul>
+			<li>--random-wait: changes the wait time between requests, to keep from being blocked</li>
+			<li>-r: recursive. follows links to download more.</li>
+			<li>robots=off: ignore robots.txt, since we want the <strong>whole</strong> site</li>
+			<li>-U: Changes the User Agent. Would be better with a real User Agent, but "Mozilla" is passable</li>
+		</ul>
+	</div>
+</section>
+
+<section class="slide">
+	<h2>Gotta get to that VM, but it doesn't have an IP!</h2>
+	<h4>Problem</h4>
+	<p>One common case was having a virtual machine on an FIU server (happens in Unix classes and Operating Systems)</p>
+	<div class="slide"><pre>ssh -t reachable_host ssh unreachable_host</pre></div>
+	<h4 class="slide">You can chain as many together as you want, too, just keep adding them on</h4>
+	<div class="slide"><pre>ssh -t host1 ssh -t host2 ssh -t host3 ssh -t host4 ...</pre></div>
+</section>
+
+<section class="slide">
+	<h2>List your ten most-used commands</h2>
+	<div class="slide"><pre>history | awk '{a[$2]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head</pre></div>
+	<h4 class="slide">What the hell is awk doing?</h4>
+	<ul>
+		<li class="slide"><code>{a[$2]++}</code> : counts how many times the second field in history appears</li>
+		<li class="slide"><code>{for(i in a){print a[i] " " i}}</code> : for each command found, print out the count, and the command</li>
+	</ul>
+</section>
+
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="jquery-1.6.4.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="core/deck.core.js"></script>
+
+<script>
+	$(function(){
+		$.deck('.slide');
+	});
+</script>
+
+	
+</body>
+</html>

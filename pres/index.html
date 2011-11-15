@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Getting Started with Logrotate</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="core/deck.core.css">
+	
+	<!-- Theme CSS files (menu swaps these out) -->
+	<link rel="stylesheet" id="style-theme-link" href="themes/style/web-2.0.css">
+	<link rel="stylesheet" id="transition-theme-link" href="themes/transition/horizontal-slide.css">
+	
+	<script src="modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+<section class="slide" id="title-slide">
+	<h1>Getting started with Logrotate</h1>
+</section>
+
+<section class="slide">
+	<h2>What does logrotate do?</h2>
+	<ol>
+		<li>
+			<h3>Rotation</h3>
+			<p>Changes your log filenames to reflect the most current logs</p>
+		</li>
+		<li>
+			<h3>Compression</h3>
+			<p>Save space by compressing older log files</p>
+		</li>
+		<li>
+			<h3>Deletion</h3>
+			<p>Deletes older log files</p>
+		</li>
+		<li>
+			<h3>Mailing</h3>
+			<p>EMail log files to the administrator</p>
+		</li>
+		<li>
+			<h3>Automated</h3>
+			<p>All run through configuration, some scripting, and cron</p>
+		</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>So where is logrotate?</h2>
+	<ul>
+		<li>
+			<h3>/usr/sbin/logrotate</h3>
+			<p>The command itself, in sbin, for administrators</p>
+		</li>
+		<li>
+			<h3>/etc/cron.daily/logrotate</h3>
+			<p>cron command that runs logrotate daily</p>
+		</li>
+		<li>
+			<h3>/etc/logrotate.conf</h3>
+			<p>The logrotate bible, where logrotate gets all its instructions from.</p>
+		</li>
+		<li>
+			<h3>/etc/logrotate.d</h3>
+			<p>Folder for log rotation config for individual packages (i.e. Apache or Yum would drop their logrotate confs in here, and they are included into /etc/logrotate.conf</p>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Simple beginnings</h2>
+	<ul>
+		<li>Will rotate when over size of 1k</li>
+		<li>Rotate and keep 4 copies</li>
+		<li>Specify permissions for the new logfile</li>
+	</ul>
+	<pre>
+		LOGROTATE1.CONF
+		/tmp/output.log{
+			size 1k
+			create 700 user user
+			rotate 4
+		}
+	</pre>
+	<p>Alternatively, you could use the copytruncate command, which (instead of creating a new file) copies the file to the rotated version, then destroys truncates the original</p>
+</section>
+
+<section class="slide">
+	<h2>Compression is key</h2>
+	<p>Use the compress command to make your old logs a bit easier on the filesystem</p>
+	<pre>
+		LOGROTATE2.CONF
+		/tmp/output.log{
+			size 1k
+			copytruncate
+			create 700 user user
+			rotate 4
+			compress
+		}
+	</pre>
+</section>
+
+<section class="slide">
+	<h2>Fine Tune the Timing</h2>
+	<ul>
+		<li>monthly</li>
+		<li>daily</li>
+		<li>weekly</li>
+		<li>maxage
+			<pre>maxage 100</pre>
+			<p>Removes a log file when it reaches a certain number of days old. In this case, 100.</p>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Sophistication of the Scripters</h2>
+	<p>You can add a script to be executed after your log rotates</p>
+	<pre>
+		LOGROTATE3.CONF
+		/tmp/output.log{
+			size 1k
+			copytruncate
+			create 700 user user
+			rotate 4
+			compress
+			postrotate
+				/var/www/html/pres/helloworld.sh
+			endscript
+		}
+	</pre>
+</section>
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="jquery-1.6.4.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="core/deck.core.js"></script>
+
+<script>
+	$(function(){
+		$.deck('.slide');
+	});
+</script>
+
+</body>
+</html>
